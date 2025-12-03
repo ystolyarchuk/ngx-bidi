@@ -1,11 +1,6 @@
 # ngx-bidi
 
-[![npm version](https://badge.fury.io/js/ngx-bidi.svg)](https://badge.fury.io/js/ngx-bidi)
-[![npm](https://img.shields.io/npm/dm/ngx-bidi.svg)](https://www.npmjs.com/package/ngx-bidi)
-
 ngx-bidi is an Angular library for managing text direction (LTR / RTL) automatically based on selected language or manual control.
-
-**📦 [npm](https://www.npmjs.com/package/ngx-bidi) | 🐛 [Issues](https://github.com/ystolyarchuk/ngx-bidi/issues) | 📖 [GitHub](https://github.com/ystolyarchuk/ngx-bidi)**
 
 It supports:
 - Automatic direction switching via directive
@@ -45,13 +40,13 @@ export class AppModule {}
 If your component is standalone:
 
 ```ts
-import { DirDirective } from 'ngx-bidi';
+import { NgxBidiDirective } from 'ngx-bidi';
 
 @Component({
   standalone: true,
   selector: 'app-example',
   template: `<div dirAuto>...</div>`,
-  imports: [DirDirective],
+  imports: [NgxBidiDirective],
 })
 export class ExampleComponent {}
 ```
@@ -161,4 +156,3 @@ RTL is automatically enabled for:
 ## License
 
 MIT
-```

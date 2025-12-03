@@ -8,7 +8,7 @@ export type TextDir = 'ltr' | 'rtl';
 export class NgxBidiService {
 
   // Default list of RTL languages
-  private readonly rtlLangs: any = ['he', 'ar', 'hy', 'dv', 'ff', 'ku', 'fa'];
+  private readonly rtlLangs: readonly string[] = ['ar', 'he', 'fa', 'dv', 'ku', 'ur', 'ps'];
 
   // Internal direction state
   private readonly dir$ = new BehaviorSubject<TextDir>('ltr');

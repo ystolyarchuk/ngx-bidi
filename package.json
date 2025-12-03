@@ -3,7 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "ng build ngx-bidi"
+    "build": "ng build ngx-bidi && cp projects/ngx-bidi/CHANGELOG.md dist/ngx-bidi/",
+    "copy": "cp projects/ngx-bidi/CHANGELOG.md dist/ngx-bidi/",
+    "build:lib": "ng build ngx-bidi",
+    "piblic": "cd dist/ngx-bidi && npm publish --access public"
   },
   "dependencies": {
     "@angular/common": "^20.3.15",

@@ -22,7 +22,7 @@ projects/ngx-bidi
 │       ├── src/
 │       ├── ng-package.json
 │       ├── package.json
-│       └── README.md   <-- published to npm
+│       └── README.md
 ```
 
 ---
@@ -71,5 +71,4 @@ ng serve
 ---
 
 ## License
-
 MIT
