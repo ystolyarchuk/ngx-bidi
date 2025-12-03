@@ -4,9 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "ng build ngx-bidi && npm run copy:all",
-    "copy:all": "cp ./projects/ngx-bidi/CHANGELOG.md dist/ngx-bidi/ && mkdir -p dist/ngx-bidi/scss && cp -r projects/ngx-bidi/src/lib/scss/* dist/ngx-bidi/scss/",
-    "prepublish": "npm run copy:all",
-    "copy": "cp ./projects/ngx-bidi/CHANGELOG.md dist/ngx-bidi/",
+    "copy:all": "cp ./README.md dist/ngx-bidi/ && cp ./projects/ngx-bidi/CHANGELOG.md dist/ngx-bidi/ && mkdir -p dist/ngx-bidi/scss && cp -r projects/ngx-bidi/src/lib/scss/* dist/ngx-bidi/scss/",
     "public": "cd dist/ngx-bidi && npm publish --access public"
   },
   "dependencies": {
