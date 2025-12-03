@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ngx-bidi": {
+      "projectType": "library",
+      "root": "projects/ngx-bidi",
+      "sourceRoot": "projects/ngx-bidi/src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-bidi/ng-package.json"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-bidi"
+}

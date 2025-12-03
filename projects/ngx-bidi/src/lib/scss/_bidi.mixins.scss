@@ -1,0 +1,126 @@
+// Wrapper for LTR styles
+@mixin dir-ltr {
+  [dir='ltr'] & {
+    @content;
+  }
+}
+
+// Wrapper for RTL styles
+@mixin dir-rtl {
+  [dir='rtl'] & {
+    @content;
+  }
+}
+
+// padding-start / padding-end
+// LTR → right, RTL → left (as requested)
+@mixin padding-start($value) {
+  @include dir-ltr {
+    padding-right: $value;
+  }
+  @include dir-rtl {
+    padding-left: $value;
+  }
+}
+
+@mixin padding-end($value) {
+  @include dir-ltr {
+    padding-left: $value;
+  }
+  @include dir-rtl {
+    padding-right: $value;
+  }
+}
+
+// margin-start / margin-end
+@mixin margin-start($value) {
+  @include dir-ltr {
+    margin-right: $value;
+  }
+  @include dir-rtl {
+    margin-left: $value;
+  }
+}
+
+@mixin margin-end($value) {
+  @include dir-ltr {
+    margin-left: $value;
+  }
+  @include dir-rtl {
+    margin-right: $value;
+  }
+}
+
+// float(start|end)
+@mixin float($pos) {
+  @if $pos == start {
+    @include dir-ltr {
+      float: right;
+    }
+    @include dir-rtl {
+      float: left;
+    }
+  } @else if $pos == end {
+    @include dir-ltr {
+      float: left;
+    }
+    @include dir-rtl {
+      float: right;
+    }
+  }
+}
+
+// Apply styles for one direction explicitly
+@mixin dir($value) {
+  @if $value == ltr {
+    @include dir-ltr { @content; }
+  } @else if $value == rtl {
+    @include dir-rtl { @content; }
+  }
+}
+
+// Logical start / end helpers
+@mixin start($property, $value) {
+  @include dir-ltr {
+    #{$property}-right: $value;
+  }
+  @include dir-rtl {
+    #{$property}-left: $value;
+  }
+}
+
+@mixin end($property, $value) {
+  @include dir-ltr {
+    #{$property}-left: $value;
+  }
+  @include dir-rtl {
+    #{$property}-right: $value;
+  }
+}
+
+// Translate with X-axis inversion for RTL
+@mixin transformTranslate($x, $y) {
+  @include dir-ltr {
+    transform: translate($x, $y);
+  }
+  @include dir-rtl {
+    transform: translate(-$x, $y);
+  }
+}
+
+// Scale with X-axis mirroring
+@mixin transformScale($x, $y: 1) {
+  @include dir-ltr {
+    transform: scale($x, $y);
+  }
+  @include dir-rtl {
+    transform: scale(-$x, $y);
+  }
+}
+
+// Full horizontal mirroring
+@mixin mirror {
+  @include dir-rtl {
+    transform: scaleX(-1);
+  }
+}

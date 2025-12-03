@@ -1,0 +1,42 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+/dist/
+/out-tsc/
+/tmp/
+
+# Angular cache
+.angular/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# Coverage
+/coverage/
+
+# Logs
+*.log
+
+# Package locks (for library projects usually keep lock file OUT of git)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.idea
+node_modules
+.angular
