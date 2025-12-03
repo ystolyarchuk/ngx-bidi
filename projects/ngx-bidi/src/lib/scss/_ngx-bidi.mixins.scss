@@ -1,52 +1,64 @@
 // Wrapper for LTR styles
-@mixin dir-ltr {
-  [dir='ltr'] & {
-    @content;
+@mixin dir-ltr($use-host-context: true) {
+  @if $use-host-context {
+    :host-context([dir='ltr']) & {
+      @content;
+    }
+  } @else {
+    [dir='ltr'] & {
+      @content;
+    }
   }
 }
 
 // Wrapper for RTL styles
-@mixin dir-rtl {
-  [dir='rtl'] & {
-    @content;
+@mixin dir-rtl($use-host-context: true) {
+  @if $use-host-context {
+    :host-context([dir='rtl']) & {
+      @content;
+    }
+  } @else {
+    [dir='rtl'] & {
+      @content;
+    }
   }
 }
 
 // padding-start / padding-end
 // LTR → right, RTL → left (as requested)
-@mixin padding-start($value) {
-  @include dir-ltr {
+@mixin padding-start($value, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     padding-right: $value;
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     padding-left: $value;
   }
 }
 
-@mixin padding-end($value) {
-  @include dir-ltr {
+@mixin padding-end($value, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     padding-left: $value;
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     padding-right: $value;
   }
 }
 
 // margin-start / margin-end
-@mixin margin-start($value) {
-  @include dir-ltr {
+@mixin margin-start($value, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     margin-right: $value;
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     margin-left: $value;
   }
 }
 
-@mixin margin-end($value) {
-  @include dir-ltr {
+@mixin margin-end($value, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     margin-left: $value;
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     margin-right: $value;
   }
 }

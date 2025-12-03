@@ -104,7 +104,7 @@ Force direction:
 Import SCSS helpers:
 
 ```scss
-@use 'ngx-bidi' as dir;
+@use 'ngx-bidi/scss' as dir;
 ```
 
 ---
@@ -139,6 +139,28 @@ Import SCSS helpers:
 ```scss
 @include dir.transformTranslate(10px, 0);
 @include dir.mirror();
+```
+
+---
+
+### Using in components (with ViewEncapsulation)
+
+If you're using mixins inside Angular components with ViewEncapsulation, pass `true` as the second parameter:
+
+```scss
+:host {
+  .button {
+    @include dir.padding-start(20px, true); // true = use :host-context
+  }
+}
+```
+
+For global styles, you can omit the parameter (defaults to `true` for components):
+
+```scss
+.button {
+  @include dir.padding-start(20px); // works in global styles
+}
 ```
 
 ---

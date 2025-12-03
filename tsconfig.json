@@ -1,11 +1,21 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "ES2022",
     "module": "ES2020",
     "moduleResolution": "Bundler",
     "strict": true,
     "noImplicitOverride": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "paths": {
+      "ngx-bidi": [
+        "dist/ngx-bidi"
+      ],
+      "ngx-bidi/*": [
+        "dist/ngx-bidi/*"
+      ]
+    }
   }
 }

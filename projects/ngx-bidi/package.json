@@ -1,6 +1,6 @@
 {
   "name": "ngx-bidi",
-  "version": "1.0.6",
+  "version": "1.0.13",
   "description": "Angular LTR/RTL direction handler with SCSS utilities",
   "author": "ystolyarchuk",
   "license": "MIT",
@@ -24,5 +24,20 @@
     "@angular/core": "^20.0.0",
     "rxjs": "^7.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/ngx-bidi.mjs",
+      "esm": "./esm2022/ngx-bidi.mjs",
+      "default": "./fesm2022/ngx-bidi.mjs",
+      "style": "./scss/_index.scss"
+    },
+    "./scss": {
+      "default": "./scss/_index.scss"
+    },
+    "./scss/*": {
+      "default": "./scss/*.scss"
+    }
+  }
 }

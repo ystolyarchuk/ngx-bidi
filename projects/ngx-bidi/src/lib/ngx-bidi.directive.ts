@@ -19,7 +19,6 @@ export class NgxBidiDirective implements OnInit, OnChanges, OnDestroy {
   @Input() dirAuto?: TextDir | string;
 
   private sub?: Subscription;
-  private useService: boolean = true;
 
   constructor(private readonly ngxBidiService: NgxBidiService) {}
 
@@ -38,10 +37,12 @@ export class NgxBidiDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateDirection(): void {
+    const normalizedDir = this.normalizeDir(this.dirAuto);
+    
     // If explicit direction is provided, use it
-    if (this.dirAuto && (this.dirAuto === 'rtl' || this.dirAuto === 'ltr')) {
-      this.hostDir = this.dirAuto as TextDir;
-      this.useService = false;
+    if (normalizedDir) {
+      this.hostDir = normalizedDir;
+      // Unsubscribe from service to prevent overwriting
       if (this.sub) {
         this.sub.unsubscribe();
         this.sub = undefined;
@@ -50,11 +51,26 @@ export class NgxBidiDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     // Otherwise, subscribe to service direction changes
-    this.useService = true;
-    if (!this.sub) {
-      this.sub = this.ngxBidiService.getDir$().subscribe((dir: TextDir) => {
-        this.hostDir = dir;
-      });
+    // Unsubscribe before creating new subscription
+    if (this.sub) {
+      this.sub.unsubscribe();
+      this.sub = undefined;
     }
+    
+    this.sub = this.ngxBidiService.getDir$().subscribe((dir: TextDir) => {
+      this.hostDir = dir;
+    });
+  }
+
+  private normalizeDir(value: string | TextDir | undefined): TextDir | null {
+    if (!value) return null;
+    
+    const normalized = String(value).trim().toLowerCase();
+    
+    if (normalized === 'rtl' || normalized === 'ltr') {
+      return normalized as TextDir;
+    }
+    
+    return null;
   }
 }
