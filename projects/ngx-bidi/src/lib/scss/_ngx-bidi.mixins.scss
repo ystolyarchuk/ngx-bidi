@@ -25,7 +25,6 @@
 }
 
 // padding-start / padding-end
-// LTR → right, RTL → left (as requested)
 @mixin padding-start($value, $use-host-context: true) {
   @include dir-ltr($use-host-context) {
     padding-right: $value;
@@ -64,75 +63,75 @@
 }
 
 // float(start|end)
-@mixin float($pos) {
+@mixin float($pos, $use-host-context: true) {
   @if $pos == start {
-    @include dir-ltr {
+    @include dir-ltr($use-host-context) {
       float: right;
     }
-    @include dir-rtl {
+    @include dir-rtl($use-host-context) {
       float: left;
     }
   } @else if $pos == end {
-    @include dir-ltr {
+    @include dir-ltr($use-host-context) {
       float: left;
     }
-    @include dir-rtl {
+    @include dir-rtl($use-host-context) {
       float: right;
     }
   }
 }
 
 // Apply styles for one direction explicitly
-@mixin dir($value) {
+@mixin dir($value, $use-host-context: true) {
   @if $value == ltr {
-    @include dir-ltr { @content; }
+    @include dir-ltr($use-host-context) { @content; }
   } @else if $value == rtl {
-    @include dir-rtl { @content; }
+    @include dir-rtl($use-host-context) { @content; }
   }
 }
 
 // Logical start / end helpers
-@mixin start($property, $value) {
-  @include dir-ltr {
+@mixin start($property, $value, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     #{$property}-right: $value;
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     #{$property}-left: $value;
   }
 }
 
-@mixin end($property, $value) {
-  @include dir-ltr {
+@mixin end($property, $value, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     #{$property}-left: $value;
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     #{$property}-right: $value;
   }
 }
 
 // Translate with X-axis inversion for RTL
-@mixin transformTranslate($x, $y) {
-  @include dir-ltr {
+@mixin transformTranslate($x, $y: 0, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     transform: translate($x, $y);
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     transform: translate(-$x, $y);
   }
 }
 
 // Scale with X-axis mirroring
-@mixin transformScale($x, $y: 1) {
-  @include dir-ltr {
+@mixin transformScale($x, $y: 1, $use-host-context: true) {
+  @include dir-ltr($use-host-context) {
     transform: scale($x, $y);
   }
-  @include dir-rtl {
+  @include dir-rtl($use-host-context) {
     transform: scale(-$x, $y);
   }
 }
 
 // Full horizontal mirroring
-@mixin mirror {
-  @include dir-rtl {
+@mixin mirror($use-host-context: true) {
+  @include dir-rtl($use-host-context) {
     transform: scaleX(-1);
   }
 }

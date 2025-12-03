@@ -20,7 +20,7 @@ npm install ngx-bidi
 
 ## Usage
 
-## 1. Import as Angular module
+### 1. Import as Angular module
 
 Use this if you want the directive available in a module:
 
@@ -35,7 +35,7 @@ export class AppModule {}
 
 ---
 
-## 2. Use as standalone directive
+### 2. Use as standalone directive
 
 If your component is standalone:
 
@@ -53,7 +53,7 @@ export class ExampleComponent {}
 
 ---
 
-## 3. Use only the service
+### 3. Use only the service
 
 If you only need direction logic without binding to HTML:
 
@@ -109,57 +109,65 @@ Import SCSS helpers:
 
 ---
 
-### Padding
+## Available Mixins
 
-```scss
-@include dir.padding-start(20px);
-```
+All mixins support ViewEncapsulation via optional `$use-host-context` parameter (defaults to `true` for component styles).
 
----
+### Direction Wrappers
 
-### Margin
+- `dir-ltr($use-host-context: true)` - Apply styles only for LTR direction
+- `dir-rtl($use-host-context: true)` - Apply styles only for RTL direction
+- `dir($value, $use-host-context: true)` - Apply styles for specific direction (ltr/rtl)
 
-```scss
-@include dir.margin-start(10px);
-@include dir.margin-end(5px);
-```
+### Padding & Margin
 
----
+- `padding-start($value, $use-host-context: true)` - Padding on start side (right in LTR, left in RTL)
+- `padding-end($value, $use-host-context: true)` - Padding on end side (left in LTR, right in RTL)
+- `margin-start($value, $use-host-context: true)` - Margin on start side (right in LTR, left in RTL)
+- `margin-end($value, $use-host-context: true)` - Margin on end side (left in LTR, right in RTL)
 
-### Float
+### Float & Clear
 
-```scss
-@include dir.float(start);
-```
+- `float($pos, $use-host-context: true)` - Float element to start or end (`start` or `end`)
 
----
+### Position
+
+- `left($value, $use-host-context: true)` - Left position (right in RTL)
+- `right($value, $use-host-context: true)` - Right position (left in RTL)
+
+### Text Alignment
+
+- `text-align-start($use-host-context: true)` - Align text to start (left in LTR, right in RTL)
+- `text-align-end($use-host-context: true)` - Align text to end (right in LTR, left in RTL)
 
 ### Transforms
 
-```scss
-@include dir.transformTranslate(10px, 0);
-@include dir.mirror();
-```
+- `transformTranslate($x, $y: 0, $use-host-context: true)` - Translate with X-axis inversion for RTL
+- `transformScale($x, $y: 1, $use-host-context: true)` - Scale with X-axis mirroring for RTL
+- `mirror($use-host-context: true)` - Full horizontal mirroring for RTL
 
----
+### Generic Property Helpers
+
+- `start($property, $value, $use-host-context: true)` - Apply any property to start side
+- `end($property, $value, $use-host-context: true)` - Apply any property to end side
 
 ### Using in components (with ViewEncapsulation)
 
-If you're using mixins inside Angular components with ViewEncapsulation, pass `true` as the second parameter:
+If you're using mixins inside Angular components with ViewEncapsulation, the `$use-host-context` parameter defaults to `true`:
 
 ```scss
 :host {
   .button {
-    @include dir.padding-start(20px, true); // true = use :host-context
+    @include dir.padding-start(20px); // Uses :host-context by default
   }
 }
 ```
 
-For global styles, you can omit the parameter (defaults to `true` for components):
+For global styles, you can pass `false`:
 
 ```scss
 .button {
-  @include dir.padding-start(20px); // works in global styles
+  @include dir.padding-start(20px, false); // Uses [dir] selector
 }
 ```
 
