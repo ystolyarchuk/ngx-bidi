@@ -1,4 +1,4 @@
-## [1.0.4] - 2025-03-04
+## [1.0.5] - 2025-03-04
 
 ### Changed
-Updated version of angular
+Changed name of directive

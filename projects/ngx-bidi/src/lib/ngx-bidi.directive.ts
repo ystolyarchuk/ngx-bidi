@@ -4,10 +4,10 @@ import { NgxBidiService, TextDir } from "./ngx-bidi.service";
 
 /**
  * Directive that applies `bidi` attribute to the host element.
- * Usage: <div ngxBidi></div>
+ * Usage: <div dirAuto></div>
  */
 @Directive({
-  selector: '[ngxBidi]',
+  selector: '[dirAuto]',
   standalone: true,
 })
 export class NgxBidiDirective implements OnInit, OnDestroy {
