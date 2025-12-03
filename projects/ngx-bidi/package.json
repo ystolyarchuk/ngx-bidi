@@ -1,6 +1,6 @@
 {
   "name": "ngx-bidi",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Angular LTR/RTL direction handler with SCSS utilities",
   "author": "ystolyarchuk",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "scss"
   ],
   "peerDependencies": {
-    "@angular/core": "^18.0.0",
+    "@angular/core": "^20.0.0",
     "rxjs": "^7.0.0"
   },
   "sideEffects": false
