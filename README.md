@@ -6,7 +6,9 @@
 [![codecov](https://codecov.io/gh/ystolyarchuk/ngx-bidi/branch/master/graph/badge.svg)](https://codecov.io/gh/ystolyarchuk/ngx-bidi)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/ystolyarchuk/ngx-bidi)
 
-ngx-bidi is an Angular library for managing text direction (LTR / RTL) automatically based on selected language or manual control.
+**📦 [Install from npm](https://www.npmjs.com/package/ngx-bidi)**
+
+ngx-bidi is an Angular(^20.0.0) library for managing text direction (LTR / RTL) automatically based on selected language or manual control.
 
 It supports:
 - Automatic direction switching via directive

@@ -18,8 +18,17 @@
     "ltr",
     "bidi",
     "direction",
-    "scss"
+    "scss",
+    "text-direction",
+    "multilingual",
+    "i18n",
+    "localization",
+    "internationalization",
+    "language",
+    "layout",
+    "directive"
   ],
+
   "peerDependencies": {
     "@angular/core": "^20.0.0",
     "rxjs": "^7.0.0"
