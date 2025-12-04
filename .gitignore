@@ -34,7 +34,7 @@ Thumbs.db
 *.log
 
 # Package locks (for library projects usually keep lock file OUT of git)
-package-lock.json
+#package-lock.json
 yarn.lock
 pnpm-lock.yaml
 .idea
