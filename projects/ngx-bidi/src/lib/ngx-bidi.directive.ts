@@ -65,7 +65,11 @@ export class NgxBidiDirective implements OnInit, OnChanges, OnDestroy {
   private normalizeDir(value: string | TextDir | undefined): TextDir | null {
     if (!value) return null;
     
-    const normalized = String(value).trim().toLowerCase();
+    // Remove quotes from start and end, then trim and lowercase
+    let normalized = String(value).trim();
+    // Remove surrounding quotes (single or double)
+    normalized = normalized.replace(/^['"]|['"]$/g, '').trim();
+    normalized = normalized.toLowerCase();
     
     if (normalized === 'rtl' || normalized === 'ltr') {
       return normalized as TextDir;

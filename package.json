@@ -5,18 +5,32 @@
   "scripts": {
     "build": "ng build ngx-bidi && npm run copy:all",
     "copy:all": "cp ./README.md dist/ngx-bidi/ && cp ./projects/ngx-bidi/CHANGELOG.md dist/ngx-bidi/ && mkdir -p dist/ngx-bidi/scss && cp -r projects/ngx-bidi/src/lib/scss/* dist/ngx-bidi/scss/",
-    "public": "cd dist/ngx-bidi && npm publish --access public"
+    "public": "cd dist/ngx-bidi && npm publish --access public",
+    "test": "ng test ngx-bidi",
+    "test:watch": "ng test ngx-bidi --watch",
+    "test:coverage": "ng test ngx-bidi --code-coverage"
   },
   "dependencies": {
-    "@angular/common": "^20.3.15",
-    "@angular/core": "^20.3.15",
+    "@angular/common": "^20.3.13",
+    "@angular/core": "^20.3.13",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@angular/cli": "^20.3.15",
-    "@angular/compiler-cli": "^20.3.15",
-    "@angular-devkit/build-angular": "^20.3.15",
+    "@angular-devkit/build-angular": "^20.3.13",
+    "@angular/cli": "^20.3.13",
+    "@angular/compiler-cli": "^20.3.13",
+    "@angular/platform-browser-dynamic": "^20.3.13",
+    "@types/jasmine": "^5.1.4",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "jasmine-core": "^5.4.2",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-html-reporter": "^2.1.0",
     "ng-packagr": "^20.0.0",
-    "typescript": "^5.4.0"
+    "typescript": "^5.8.0",
+    "zone.js": "~0.15.0"
   }
 }
