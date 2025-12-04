@@ -8,13 +8,15 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+      id-token: write
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history for tags
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -87,20 +89,23 @@ jobs:
         if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
         run: npm run build
 
+      - name: Create git tag
+        if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.package-version.outputs.version }}"
+          TAG="v$VERSION"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+
       - name: Publish to npm
         if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
         working-directory: dist/ngx-bidi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access public
-
-      - name: Create git tag
-        if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
-        run: |
-          VERSION="${{ steps.package-version.outputs.version }}"
-          TAG="v$VERSION"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "$TAG" -m "Release $TAG"
-          git push origin "$TAG"
 
