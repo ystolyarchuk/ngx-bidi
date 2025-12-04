@@ -79,7 +79,9 @@ jobs:
 
       - name: Run tests
         if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
-        run: npm run test --code-coverage --watch=false --browsers=ChromeHeadless
+        env:
+          CI: true
+        run: npm run test:ci
 
       - name: Build package
         if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'

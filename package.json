@@ -8,7 +8,8 @@
     "public": "cd dist/ngx-bidi && npm publish --access public",
     "test": "ng test ngx-bidi",
     "test:watch": "ng test ngx-bidi --watch",
-    "test:coverage": "ng test ngx-bidi --code-coverage"
+    "test:coverage": "ng test ngx-bidi --code-coverage",
+    "test:ci": "ng test ngx-bidi --watch=false --browsers=ChromeHeadless"
   },
   "dependencies": {
     "@angular/common": "^20.3.13",

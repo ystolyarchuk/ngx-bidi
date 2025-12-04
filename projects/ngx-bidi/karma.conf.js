@@ -50,7 +50,8 @@ module.exports = function (config) {
         ]
       }
     },
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    singleRun: process.env.CI === 'true' || process.env.CI === true
   });
 };
 
