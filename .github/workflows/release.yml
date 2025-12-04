@@ -1,0 +1,104 @@
+name: Release to npm
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+          token: ${{ secrets.GITHUB_TOKEN }} 
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Get package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./projects/ngx-bidi/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $VERSION"
+
+      - name: Check if version already published
+        id: check-version
+        run: |
+          VERSION="${{ steps.package-version.outputs.version }}"
+          PUBLISHED_VERSION=$(npm view ngx-bidi version 2>/dev/null || echo "0.0.0")
+          echo "Published version: $PUBLISHED_VERSION"
+          echo "New version: $VERSION"
+          
+          # Compare versions using node with semver
+          npm install semver --no-save
+          COMPARE=$(node -e "
+            const semver = require('semver');
+            const current = '$VERSION';
+            const published = '$PUBLISHED_VERSION';
+            if (semver.gt(current, published)) {
+              console.log('true');
+            } else {
+              console.log('false');
+            }
+          ")
+          
+          if [ "$COMPARE" = "true" ]; then
+            echo "Version is newer, proceeding with release"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "Version $VERSION is not newer than published version $PUBLISHED_VERSION"
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if tag exists
+        id: check-tag
+        if: steps.check-version.outputs.should_publish == 'true'
+        run: |
+          VERSION="${{ steps.package-version.outputs.version }}"
+          TAG="v$VERSION"
+          
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists"
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag $TAG does not exist, proceeding"
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install dependencies
+        if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
+        run: npm ci
+
+      - name: Run tests
+        if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
+        run: npm run test:coverage
+
+      - name: Build package
+        if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
+        run: npm run build
+
+      - name: Publish to npm
+        if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
+        working-directory: dist/ngx-bidi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
+
+      - name: Create git tag
+        if: steps.check-version.outputs.should_publish == 'true' && steps.check-tag.outputs.tag_exists == 'false'
+        run: |
+          VERSION="${{ steps.package-version.outputs.version }}"
+          TAG="v$VERSION"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+

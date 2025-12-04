@@ -3,7 +3,6 @@
 [![npm version](https://img.shields.io/npm/v/ngx-bidi.svg)](https://www.npmjs.com/package/ngx-bidi)
 [![npm downloads](https://img.shields.io/npm/dm/ngx-bidi.svg)](https://www.npmjs.com/package/ngx-bidi)
 [![GitHub stars](https://img.shields.io/github/stars/ystolyarchuk/ngx-bidi.svg)](https://github.com/ystolyarchuk/ngx-bidi)
-[![codecov](https://codecov.io/gh/ystolyarchuk/ngx-bidi/branch/master/graph/badge.svg)](https://codecov.io/gh/ystolyarchuk/ngx-bidi)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/ystolyarchuk/ngx-bidi)
 
 **📦 [Install from npm](https://www.npmjs.com/package/ngx-bidi)**
